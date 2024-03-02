@@ -223,14 +223,14 @@ export class VirtualKeyboardProxy
     action: VirtualKeyboardMessageAction,
     payload: any = {}
   ): void {
-    if (!window.top) {
+    if (!window.parent) {
       throw new DOMException(
         `A frame does not have access to the top window and can‘t communicate with the keyboard. Review virtualKeyboardTargetOrigin and originValidator on mathfields embedded in an iframe`,
         'SecurityError'
       );
     }
 
-    window.top.postMessage(
+    window.parent.postMessage(
       {
         type: VIRTUAL_KEYBOARD_MESSAGE,
         action,
