@@ -674,7 +674,7 @@ export class VirtualKeyboard implements VirtualKeyboardInterface, EventTarget {
     // browsing context. If that's the case, safely ignored messages that could
     // be dispatched from other mathfields, as we will only respond to
     // direct invocation via function dispatching on the VK instance.
-    if (window !== window.top) return;
+    if (window !== window.top && !('H5P' in window)) return;
 
     if (action === 'show') {
       if (typeof msg.animate !== 'undefined')
