@@ -1,6 +1,6 @@
 {
   "name": "@abuenameh/mathlive",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "A web component for math input",
   "license": "MIT",
   "files": [
