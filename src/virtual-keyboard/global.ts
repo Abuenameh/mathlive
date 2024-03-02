@@ -6,7 +6,7 @@ export { VirtualKeyboard } from './virtual-keyboard';
 export { VirtualKeyboardProxy } from './proxy';
 
 if (isBrowser() && !('mathVirtualKeyboard' in window)) {
-  if (window === window['top']) {
+  if (window === window['top'] || typeof window.H5P !== 'undefined') {
     // When at the top-level window, mathVirtualKeyboard is a singleton
     // VirtualKeyboard. Instantiate it during static init, otherwise
     // mathfields in iFrame will not be able to talk to it until it has been
