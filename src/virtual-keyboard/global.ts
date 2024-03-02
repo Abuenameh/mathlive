@@ -6,7 +6,6 @@ export { VirtualKeyboard } from './virtual-keyboard';
 export { VirtualKeyboardProxy } from './proxy';
 
 if (isBrowser() && !('mathVirtualKeyboard' in window)) {
-  console.log('global, window', window);
   if (window === window['top'] || 'H5P' in window) {
     // When at the top-level window, mathVirtualKeyboard is a singleton
     // VirtualKeyboard. Instantiate it during static init, otherwise
