@@ -277,7 +277,7 @@ export class VirtualKeyboard implements VirtualKeyboardInterface, EventTarget {
     this.listeners = {};
 
     try {
-      window.top?.addEventListener('message', this);
+      window.parent?.addEventListener('message', this);
     } catch (e) {
       // We are in an iframe and the parent document is not accessible
       // (different domains)
