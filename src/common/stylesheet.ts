@@ -103,12 +103,14 @@ export function getStylesheet(id: StylesheetId): CSSStyleSheet {
 let gInjectedStylesheets: Partial<Record<StylesheetId, number>>;
 
 export function injectStylesheet(id: StylesheetId): void {
-  if (!('adoptedStyleSheets' in document)) {
-    if (window.document.getElementById(`mathlive-style-${id}`)) return;
-    const styleNode = window.document.createElement('style');
+  if (window.top && !('adoptedStyleSheets' in document)) {
+    if (window.top.document.getElementById(`mathlive-style-${id}`)) return;
+    const styleNode = window.top.document.createElement('style');
     styleNode.id = `mathlive-style-${id}`;
-    styleNode.append(window.document.createTextNode(getStylesheetContent(id)));
-    window.document.head.appendChild(styleNode);
+    styleNode.append(
+      window.top.document.createTextNode(getStylesheetContent(id))
+    );
+    window.top.document.head.appendChild(styleNode);
     return;
   }
 
