@@ -103,30 +103,23 @@ export function getStylesheet(id: StylesheetId): CSSStyleSheet {
 let gInjectedStylesheets: Partial<Record<StylesheetId, number>>;
 
 export function injectStylesheet(id: StylesheetId): void {
-  if (window.top && !('adoptedStyleSheets' in window.top.document)) {
-    // @ts-ignore
+  if (window.top) {
     if (window.top.document.getElementById(`mathlive-style-${id}`)) return;
-    // @ts-ignore
     const styleNode = window.top.document.createElement('style');
     styleNode.id = `mathlive-style-${id}`;
     styleNode.append(
-      // @ts-ignore
       window.top.document.createTextNode(getStylesheetContent(id))
     );
-    // @ts-ignore
     window.top.document.head.appendChild(styleNode);
     return;
   }
 
   if (!gInjectedStylesheets) gInjectedStylesheets = {};
   if ((gInjectedStylesheets[id] ?? 0) !== 0) gInjectedStylesheets[id]! += 1;
-  else if (window.top) {
+  else {
     const stylesheet = getStylesheet(id);
     // @ts-ignore
-    window.top.document.adoptedStyleSheets = [
-      ...window.top.document.adoptedStyleSheets,
-      stylesheet,
-    ];
+    document.adoptedStyleSheets = [...document.adoptedStyleSheets, stylesheet];
     gInjectedStylesheets[id] = 1;
   }
 }
