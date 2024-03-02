@@ -264,7 +264,11 @@ export class VirtualKeyboard implements VirtualKeyboardInterface, EventTarget {
     this._layouts = Object.freeze(['default']);
     this._editToolbar = 'default';
 
-    this._container = window.document?.body ?? null;
+    try {
+      this._container = window.top?.document?.body ?? null;
+    } catch (e) {
+      this._container = window.document?.body ?? null;
+    }
 
     this._visible = false;
     this._rebuilding = false;
